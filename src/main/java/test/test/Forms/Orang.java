@@ -11,12 +11,15 @@ import org.javalite.activejdbc.Base;
 import org.javalite.activejdbc.LazyList;
 import test.test.Helpers.ADHhelper;
 import test.test.Models.OrangModel;
+import test.test.Config.ActiveJDBC;
 
 /**
  *
  * @author user
  */
 public class Orang extends javax.swing.JFrame {
+    private DefaultTableModel model = new DefaultTableModel();
+    
     /**
      * Creates new form Orang
      */
@@ -27,21 +30,18 @@ public class Orang extends javax.swing.JFrame {
     }
 
     private void loadTable() {
-        DefaultTableModel model = new DefaultTableModel();
+        model = new DefaultTableModel();
         
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/cilara_test", "root", "");
+        ActiveJDBC.Init();
         LazyList<OrangModel> orangs = OrangModel.findAll();
         
-        model.addColumn("No");
+        model.addColumn("#ID");
         model.addColumn("Nama");
         model.addColumn("Alamat");
         
-        int i = 1;
         for(OrangModel orang : orangs) {
             ADHhelper.d(orang.toJson(true));
-            model.addRow(new Object[]{i, orang.getString("nama"), orang.getString("alamat")});
-            
-            i++;
+            model.addRow(new Object[]{orang.getId(), orang.getString("nama"), orang.getString("alamat"), orang.getId()});
         }
         Base.close();
         TableOrang.setModel(model);
@@ -65,8 +65,8 @@ public class Orang extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         TextAlamat = new javax.swing.JTextPane();
         LabelAlamat = new javax.swing.JLabel();
-        ButtonTambah = new javax.swing.JButton();
-        ButtonReset = new javax.swing.JButton();
+        ButtonTambahUbah = new javax.swing.JButton();
+        ButtonResetHapus = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,6 +79,11 @@ public class Orang extends javax.swing.JFrame {
             }
         ));
         TableOrang.getTableHeader().setReorderingAllowed(false);
+        TableOrang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableOrangMouseClicked(evt);
+            }
+        });
         ScrollPane.setViewportView(TableOrang);
 
         LabelOrang.setText("Orang");
@@ -91,17 +96,17 @@ public class Orang extends javax.swing.JFrame {
 
         LabelAlamat.setText("Alamat");
 
-        ButtonTambah.setText("Tambah");
-        ButtonTambah.addActionListener(new java.awt.event.ActionListener() {
+        ButtonTambahUbah.setText("Tambah");
+        ButtonTambahUbah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonTambahActionPerformed(evt);
+                ButtonTambahUbahActionPerformed(evt);
             }
         });
 
-        ButtonReset.setText("Reset");
-        ButtonReset.addActionListener(new java.awt.event.ActionListener() {
+        ButtonResetHapus.setText("Reset");
+        ButtonResetHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonResetActionPerformed(evt);
+                ButtonResetHapusActionPerformed(evt);
             }
         });
 
@@ -122,12 +127,12 @@ public class Orang extends javax.swing.JFrame {
                     .addComponent(LabelNama)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(ButtonTambah)
+                        .addComponent(ButtonTambahUbah)
                         .addGap(51, 51, 51)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(ButtonReset)
+                        .addComponent(ButtonResetHapus)
                         .addGap(94, 94, 94))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(LabelAlamat)
@@ -153,8 +158,8 @@ public class Orang extends javax.swing.JFrame {
                         .addComponent(jScrollPane1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ButtonTambah)
-                    .addComponent(ButtonReset))
+                    .addComponent(ButtonTambahUbah)
+                    .addComponent(ButtonResetHapus))
                 .addGap(18, 18, 18)
                 .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -162,11 +167,11 @@ public class Orang extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonResetActionPerformed
+    private void ButtonResetHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonResetHapusActionPerformed
         resetForm();
-    }//GEN-LAST:event_ButtonResetActionPerformed
+    }//GEN-LAST:event_ButtonResetHapusActionPerformed
 
-    private void ButtonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahActionPerformed
+    private void ButtonTambahUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahUbahActionPerformed
         if (TextNama.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(null, "Form Nama Masih Kosong !!!");
         } else if(TextAlamat.getText().trim().equals("")) {
@@ -176,10 +181,21 @@ public class Orang extends javax.swing.JFrame {
             resetForm();
             loadTable();
         }
-    }//GEN-LAST:event_ButtonTambahActionPerformed
+    }//GEN-LAST:event_ButtonTambahUbahActionPerformed
+
+    private void TableOrangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableOrangMouseClicked
+        int i =TableOrang.getSelectedRow();
+        if(i>=0){
+            ActiveJDBC.Init();
+            OrangModel orang = OrangModel.findById(model.getValueAt(i, 0).toString());
+            TextNama.setText(orang.getString("nama"));
+            TextAlamat.setText(orang.getString("alamat"));
+            Base.close();
+        }
+    }//GEN-LAST:event_TableOrangMouseClicked
 
     private void tambahData(String nama, String alamat) {
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/cilara_test", "root", "");
+        ActiveJDBC.Init();
         OrangModel orang = new OrangModel();
         orang.set("nama", nama);
         orang.set("alamat", alamat);
@@ -229,8 +245,8 @@ public class Orang extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ButtonReset;
-    private javax.swing.JButton ButtonTambah;
+    private javax.swing.JButton ButtonResetHapus;
+    private javax.swing.JButton ButtonTambahUbah;
     private javax.swing.JLabel LabelAlamat;
     private javax.swing.JLabel LabelNama;
     private javax.swing.JLabel LabelOrang;
