@@ -5,6 +5,7 @@
  */
 package test.test.Forms;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.javalite.activejdbc.Base;
 import org.javalite.activejdbc.LazyList;
@@ -166,8 +167,13 @@ public class Orang extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonResetActionPerformed
 
     private void ButtonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahActionPerformed
-        tambahData(TextNama.getText(), TextAlamat.getText());
-        loadTable();
+        if (TextNama.getText().trim().equals("") || TextAlamat.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Data Masi Ada Yang Kosong !!!");
+        } else {
+            tambahData(TextNama.getText(), TextAlamat.getText());
+            resetForm();
+            loadTable();
+        }
     }//GEN-LAST:event_ButtonTambahActionPerformed
 
     private void tambahData(String nama, String alamat) {
