@@ -27,7 +27,7 @@ public class Form extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ChildPanel = new javax.swing.JPanel();
+        DesktopPane = new javax.swing.JDesktopPane();
         MenuBar = new javax.swing.JMenuBar();
         MenuCRUD = new javax.swing.JMenu();
         SubMenuOrang = new javax.swing.JMenuItem();
@@ -35,14 +35,14 @@ public class Form extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout ChildPanelLayout = new javax.swing.GroupLayout(ChildPanel);
-        ChildPanel.setLayout(ChildPanelLayout);
-        ChildPanelLayout.setHorizontalGroup(
-            ChildPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout DesktopPaneLayout = new javax.swing.GroupLayout(DesktopPane);
+        DesktopPane.setLayout(DesktopPaneLayout);
+        DesktopPaneLayout.setHorizontalGroup(
+            DesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 881, Short.MAX_VALUE)
         );
-        ChildPanelLayout.setVerticalGroup(
-            ChildPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        DesktopPaneLayout.setVerticalGroup(
+            DesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 507, Short.MAX_VALUE)
         );
 
@@ -74,14 +74,14 @@ public class Form extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ChildPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(DesktopPane)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ChildPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(DesktopPane)
                 .addContainerGap())
         );
 
@@ -134,7 +134,7 @@ public class Form extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel ChildPanel;
+    private javax.swing.JDesktopPane DesktopPane;
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JMenu MenuCRUD;
     private javax.swing.JMenuItem SubMenuBarang;

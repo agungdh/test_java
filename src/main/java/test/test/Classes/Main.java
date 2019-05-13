@@ -15,8 +15,10 @@ public class Main {
     public static void main(String args[]) {
         test.test.Config.ActiveJDBC.Init();
         
-        new Form().setVisible(true);
+        new Orang().setVisible(true);
         
-        Temp.test();
+//        new Form().setVisible(true);
+//        
+//        Temp.test();
     }
 }

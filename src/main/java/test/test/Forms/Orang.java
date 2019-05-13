@@ -5,19 +5,45 @@
  */
 package test.test.Forms;
 
+import javax.swing.table.DefaultTableModel;
+import org.javalite.activejdbc.LazyList;
+import test.test.Helpers.ADHhelper;
+import test.test.Models.OrangModel;
+
 /**
  *
  * @author user
  */
 public class Orang extends javax.swing.JFrame {
-
     /**
      * Creates new form Orang
      */
     public Orang() {
         initComponents();
+        
+        loadTable();
     }
 
+    private void loadTable() {
+        DefaultTableModel model = new DefaultTableModel();
+        
+        LazyList<OrangModel> orangs = OrangModel.findAll();
+        
+        model.addColumn("No");
+        model.addColumn("Nama");
+        model.addColumn("Alamat");
+        
+        int i = 1;
+        for(OrangModel orang : orangs) {
+            ADHhelper.d(orang.toJson(true));
+            model.addRow(new Object[]{i, orang.getString("nama"), orang.getString("alamat")});
+            
+            i++;
+        }
+        
+        TableOrang.setModel(model);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,32 +53,113 @@ public class Orang extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        ScrollPane = new javax.swing.JScrollPane();
+        TableOrang = new javax.swing.JTable();
+        LabelOrang = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TextNama = new javax.swing.JTextPane();
+        LabelNama = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TextAlamat = new javax.swing.JTextPane();
+        LabelAlamat = new javax.swing.JLabel();
+        ButtonTambah = new javax.swing.JButton();
+        ButtonReset = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Orang");
+        TableOrang.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        TableOrang.getTableHeader().setReorderingAllowed(false);
+        ScrollPane.setViewportView(TableOrang);
+
+        LabelOrang.setText("Orang");
+
+        jScrollPane1.setViewportView(TextNama);
+
+        LabelNama.setText("Nama");
+
+        jScrollPane2.setViewportView(TextAlamat);
+
+        LabelAlamat.setText("Alamat");
+
+        ButtonTambah.setText("Tambah");
+
+        ButtonReset.setText("Reset");
+        ButtonReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonResetActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(346, 346, 346)
-                .addComponent(jLabel1)
-                .addContainerGap(377, Short.MAX_VALUE))
+                .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(LabelOrang)
+                .addGap(159, 159, 159))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ButtonTambah)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ButtonReset)
+                        .addGap(47, 47, 47))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(LabelNama)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(LabelAlamat)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(28, 28, 28))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(136, 136, 136)
-                .addComponent(jLabel1)
-                .addContainerGap(290, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LabelOrang)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(LabelNama)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(LabelAlamat)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ButtonTambah)
+                    .addComponent(ButtonReset))
+                .addGap(18, 18, 18)
+                .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void ButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonResetActionPerformed
+        resetForm();
+    }//GEN-LAST:event_ButtonResetActionPerformed
+
+    private void resetForm() {
+        TextNama.setText("");
+        TextAlamat.setText("");
+    }
     /**
      * @param args the command line arguments
      */
@@ -89,6 +196,16 @@ public class Orang extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton ButtonReset;
+    private javax.swing.JButton ButtonTambah;
+    private javax.swing.JLabel LabelAlamat;
+    private javax.swing.JLabel LabelNama;
+    private javax.swing.JLabel LabelOrang;
+    private javax.swing.JScrollPane ScrollPane;
+    private javax.swing.JTable TableOrang;
+    private javax.swing.JTextPane TextAlamat;
+    private javax.swing.JTextPane TextNama;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
