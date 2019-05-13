@@ -6,7 +6,6 @@
 package test.test.Forms;
 
 import javax.swing.table.DefaultTableModel;
-import org.javalite.activejdbc.Base;
 import org.javalite.activejdbc.LazyList;
 import test.test.Helpers.ADHhelper;
 import test.test.Models.OrangModel;
@@ -27,10 +26,8 @@ public class Orang extends javax.swing.JFrame {
 
     private void loadTable() {
         DefaultTableModel model = new DefaultTableModel();
-
-        Base.open();
+        
         LazyList<OrangModel> orangs = OrangModel.findAll();
-        Base.close();
         
         model.addColumn("No");
         model.addColumn("Nama");
@@ -172,13 +169,10 @@ public class Orang extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonTambahActionPerformed
 
     private void tambahData(String nama, String alamat) {
-        Base.open();
         OrangModel orang = new OrangModel();
         orang.set("nama", nama);
         orang.set("alamat", alamat);
         orang.save();
-        Base.close();
-        
         ADHhelper.d(orang.getString("id"));
         ADHhelper.d(orang.toJson(true));
     }

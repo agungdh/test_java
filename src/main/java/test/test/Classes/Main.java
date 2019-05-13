@@ -13,6 +13,8 @@ import test.test.Forms.*;
  */
 public class Main {
     public static void main(String args[]) {
+        test.test.Config.ActiveJDBC.Init();
+        
         new Orang().setVisible(true);
         
 //        new Form().setVisible(true);
