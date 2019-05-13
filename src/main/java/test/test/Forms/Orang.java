@@ -6,6 +6,7 @@
 package test.test.Forms;
 
 import javax.swing.table.DefaultTableModel;
+import org.javalite.activejdbc.Base;
 import org.javalite.activejdbc.LazyList;
 import test.test.Helpers.ADHhelper;
 import test.test.Models.OrangModel;
@@ -26,8 +27,10 @@ public class Orang extends javax.swing.JFrame {
 
     private void loadTable() {
         DefaultTableModel model = new DefaultTableModel();
-        
+
+        Base.open();
         LazyList<OrangModel> orangs = OrangModel.findAll();
+        Base.close();
         
         model.addColumn("No");
         model.addColumn("Nama");
@@ -89,6 +92,11 @@ public class Orang extends javax.swing.JFrame {
         LabelAlamat.setText("Alamat");
 
         ButtonTambah.setText("Tambah");
+        ButtonTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonTambahActionPerformed(evt);
+            }
+        });
 
         ButtonReset.setText("Reset");
         ButtonReset.addActionListener(new java.awt.event.ActionListener() {
@@ -109,22 +117,24 @@ public class Orang extends javax.swing.JFrame {
                 .addComponent(LabelOrang)
                 .addGap(159, 159, 159))
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LabelNama)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(ButtonTambah)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(51, 51, 51)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(ButtonReset)
-                        .addGap(47, 47, 47))
+                        .addGap(94, 94, 94))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(LabelAlamat)
+                        .addGap(120, 120, 120))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(LabelNama)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(LabelAlamat)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28))))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,16 +142,16 @@ public class Orang extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(LabelOrang)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(LabelNama)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(LabelAlamat)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(LabelNama)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ButtonTambah)
                     .addComponent(ButtonReset))
@@ -156,6 +166,23 @@ public class Orang extends javax.swing.JFrame {
         resetForm();
     }//GEN-LAST:event_ButtonResetActionPerformed
 
+    private void ButtonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahActionPerformed
+        tambahData(TextNama.getText(), TextAlamat.getText());
+        loadTable();
+    }//GEN-LAST:event_ButtonTambahActionPerformed
+
+    private void tambahData(String nama, String alamat) {
+        Base.open();
+        OrangModel orang = new OrangModel();
+        orang.set("nama", nama);
+        orang.set("alamat", alamat);
+        orang.save();
+        Base.close();
+        
+        ADHhelper.d(orang.getString("id"));
+        ADHhelper.d(orang.toJson(true));
+    }
+    
     private void resetForm() {
         TextNama.setText("");
         TextAlamat.setText("");
