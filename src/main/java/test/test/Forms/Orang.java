@@ -167,8 +167,10 @@ public class Orang extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonResetActionPerformed
 
     private void ButtonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahActionPerformed
-        if (TextNama.getText().trim().equals("") || TextAlamat.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Data Masi Ada Yang Kosong !!!");
+        if (TextNama.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Form Nama Masih Kosong !!!");
+        } else if(TextAlamat.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null, "Form Alamat Masih Kosong !!!");
         } else {
             tambahData(TextNama.getText(), TextAlamat.getText());
             resetForm();
