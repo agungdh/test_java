@@ -18,7 +18,7 @@ import test.test.Config.ActiveJDBC;
  *
  * @author user
  */
-public class Orang extends javax.swing.JFrame {
+public class Barang extends javax.swing.JFrame {
     private DefaultTableModel model = new DefaultTableModel();
     private String ID;
     private String state;
@@ -26,7 +26,7 @@ public class Orang extends javax.swing.JFrame {
     /**
      * Creates new form Orang
      */
-    public Orang() {
+    public Barang() {
         initComponents();
         
         loadTable();
@@ -71,6 +71,7 @@ public class Orang extends javax.swing.JFrame {
         LabelAlamat = new javax.swing.JLabel();
         ButtonTambahUbah = new javax.swing.JButton();
         ButtonResetHapus = new javax.swing.JButton();
+        ButtonBarang = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,6 +115,13 @@ public class Orang extends javax.swing.JFrame {
             }
         });
 
+        ButtonBarang.setText("Barang");
+        ButtonBarang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonBarangActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -130,19 +138,19 @@ public class Orang extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(LabelNama)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(ButtonTambahUbah)
-                        .addGap(51, 51, 51)))
+                    .addComponent(ButtonTambahUbah))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(ButtonResetHapus)
-                        .addGap(94, 94, 94))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(LabelAlamat)
                         .addGap(120, 120, 120))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(ButtonResetHapus)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ButtonBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -161,11 +169,14 @@ public class Orang extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ButtonTambahUbah)
-                    .addComponent(ButtonResetHapus))
-                .addGap(18, 18, 18)
-                .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ButtonTambahUbah)
+                            .addComponent(ButtonResetHapus))
+                        .addGap(18, 18, 18)
+                        .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ButtonBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         pack();
@@ -229,6 +240,10 @@ public class Orang extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_TableOrangMouseClicked
 
+    private void ButtonBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBarangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonBarangActionPerformed
+
     private void setState(String IndexOrEdit) {
         if (IndexOrEdit.equals("index")) {
             ButtonTambahUbah.setText("Tambah");
@@ -289,25 +304,27 @@ public class Orang extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Orang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Barang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Orang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Barang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Orang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Barang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Orang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Barang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Orang().setVisible(true);
+                new Barang().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonBarang;
     private javax.swing.JButton ButtonResetHapus;
     private javax.swing.JButton ButtonTambahUbah;
     private javax.swing.JLabel LabelAlamat;
