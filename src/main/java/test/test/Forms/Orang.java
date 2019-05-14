@@ -37,15 +37,18 @@ public class Orang extends javax.swing.JFrame {
         
         ActiveJDBC.Init();
         LazyList<OrangModel> orangs = OrangModel.findAll();
+        Base.close();
         
         model.addColumn("#ID");
         model.addColumn("Nama");
         model.addColumn("Alamat");
         
+        ActiveJDBC.Init();
         for(OrangModel orang : orangs) {
-            model.addRow(new Object[]{orang.getId(), orang.getString("nama"), orang.getString("alamat"), orang.getId()});
+            model.addRow(new Object[]{orang.getId(), orang.getString("nama"), orang.getString("alamat")});
         }
         Base.close();
+        
         TableOrang.setModel(model);
         
         setState("index");
@@ -116,6 +119,7 @@ public class Orang extends javax.swing.JFrame {
         });
 
         ButtonBarang.setText("Barang");
+        ButtonBarang.setEnabled(false);
         ButtonBarang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonBarangActionPerformed(evt);
@@ -230,29 +234,34 @@ public class Orang extends javax.swing.JFrame {
         int i =TableOrang.getSelectedRow();
         if(i>=0){
             ID = model.getValueAt(i, 0).toString();
+            
             ActiveJDBC.Init();
             OrangModel orang = OrangModel.findById(ID);
+            Base.close();
+            
             TextNama.setText(orang.getString("nama"));
             TextAlamat.setText(orang.getString("alamat"));
-            Base.close();
             
             setState("edit");
         }
     }//GEN-LAST:event_TableOrangMouseClicked
 
     private void ButtonBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBarangActionPerformed
-        // TODO add your handling code here:
+        Barang barang = new Barang(ID);
+        barang.setVisible(true);
     }//GEN-LAST:event_ButtonBarangActionPerformed
 
     private void setState(String IndexOrEdit) {
         if (IndexOrEdit.equals("index")) {
             ButtonTambahUbah.setText("Tambah");
             ButtonResetHapus.setText("Reset");
+            ButtonBarang.setEnabled(false);
             
             state = IndexOrEdit;
         } else if (IndexOrEdit.equals("edit")) {
             ButtonTambahUbah.setText("Ubah");
             ButtonResetHapus.setText("Hapus");
+            ButtonBarang.setEnabled(true);
             
             state = IndexOrEdit;
         } else {
@@ -282,11 +291,7 @@ public class Orang extends javax.swing.JFrame {
         TextNama.setText("");
         TextAlamat.setText("");
     }
-    
-    private void checkState() {
         
-    }
-    
     /**
      * @param args the command line arguments
      */

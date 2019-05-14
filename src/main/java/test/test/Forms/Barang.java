@@ -13,6 +13,7 @@ import org.javalite.activejdbc.LazyList;
 import test.test.Helpers.ADHhelper;
 import test.test.Models.OrangModel;
 import test.test.Config.ActiveJDBC;
+import test.test.Models.BarangModel;
 
 /**
  *
@@ -23,6 +24,8 @@ public class Barang extends javax.swing.JFrame {
     private String ID;
     private String state;
     
+    private OrangModel orang;
+    
     /**
      * Creates new form Orang
      */
@@ -32,21 +35,36 @@ public class Barang extends javax.swing.JFrame {
         loadTable();
     }
 
+    public Barang(String orangID) {
+        initComponents();
+        
+        ActiveJDBC.Init();
+        orang = OrangModel.findById(orangID);
+        Base.close();
+        
+        LabelNamaOrang.setText(orang.getString("nama"));
+        LabelAlamatOrang.setText(orang.getString("alamat"));
+        
+        loadTable();
+    }
+
     private void loadTable() {
         model = new DefaultTableModel();
         
         ActiveJDBC.Init();
-        LazyList<OrangModel> orangs = OrangModel.findAll();
+        LazyList<BarangModel> barangs = orang.getAll(BarangModel.class);
+        Base.close();
         
         model.addColumn("#ID");
         model.addColumn("Nama");
-        model.addColumn("Alamat");
         
-        for(OrangModel orang : orangs) {
-            model.addRow(new Object[]{orang.getId(), orang.getString("nama"), orang.getString("alamat"), orang.getId()});
+        ActiveJDBC.Init();
+        for(BarangModel barang : barangs) {
+            model.addRow(new Object[]{barang.getId(), barang.getString("nama")});
         }
         Base.close();
-        TableOrang.setModel(model);
+        
+        TableBarang.setModel(model);
         
         setState("index");
     }
@@ -61,21 +79,22 @@ public class Barang extends javax.swing.JFrame {
     private void initComponents() {
 
         ScrollPane = new javax.swing.JScrollPane();
-        TableOrang = new javax.swing.JTable();
-        LabelOrang = new javax.swing.JLabel();
+        TableBarang = new javax.swing.JTable();
+        LabelBarang = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TextNama = new javax.swing.JTextPane();
         LabelNama = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        TextAlamat = new javax.swing.JTextPane();
-        LabelAlamat = new javax.swing.JLabel();
         ButtonTambahUbah = new javax.swing.JButton();
         ButtonResetHapus = new javax.swing.JButton();
-        ButtonBarang = new javax.swing.JButton();
+        LabelNama1 = new javax.swing.JLabel();
+        LabelBarang1 = new javax.swing.JLabel();
+        LabelNama2 = new javax.swing.JLabel();
+        LabelNamaOrang = new javax.swing.JLabel();
+        LabelAlamatOrang = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        TableOrang.setModel(new javax.swing.table.DefaultTableModel(
+        TableBarang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -83,23 +102,19 @@ public class Barang extends javax.swing.JFrame {
 
             }
         ));
-        TableOrang.getTableHeader().setReorderingAllowed(false);
-        TableOrang.addMouseListener(new java.awt.event.MouseAdapter() {
+        TableBarang.getTableHeader().setReorderingAllowed(false);
+        TableBarang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TableOrangMouseClicked(evt);
+                TableBarangMouseClicked(evt);
             }
         });
-        ScrollPane.setViewportView(TableOrang);
+        ScrollPane.setViewportView(TableBarang);
 
-        LabelOrang.setText("Orang");
+        LabelBarang.setText("Barang");
 
         jScrollPane1.setViewportView(TextNama);
 
         LabelNama.setText("Nama");
-
-        jScrollPane2.setViewportView(TextAlamat);
-
-        LabelAlamat.setText("Alamat");
 
         ButtonTambahUbah.setText("Tambah");
         ButtonTambahUbah.addActionListener(new java.awt.event.ActionListener() {
@@ -115,12 +130,15 @@ public class Barang extends javax.swing.JFrame {
             }
         });
 
-        ButtonBarang.setText("Barang");
-        ButtonBarang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonBarangActionPerformed(evt);
-            }
-        });
+        LabelNama1.setText("Nama");
+
+        LabelBarang1.setText("Orang");
+
+        LabelNama2.setText("Alamat");
+
+        LabelNamaOrang.setText("Nama");
+
+        LabelAlamatOrang.setText("Alamat");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,54 +147,66 @@ public class Barang extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(LabelOrang)
-                .addGap(159, 159, 159))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LabelNama)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonTambahUbah))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(LabelAlamat)
-                        .addGap(120, 120, 120))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(ButtonResetHapus)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ButtonBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(LabelNama)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jScrollPane1)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(ButtonTambahUbah)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(ButtonResetHapus))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(LabelBarang)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(LabelBarang1)
+                        .addGap(113, 113, 113))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(LabelNama2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(LabelAlamatOrang))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(LabelNama1)
+                        .addGap(18, 18, 18)
+                        .addComponent(LabelNamaOrang)))
+                .addGap(126, 126, 126))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(LabelOrang)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(LabelAlamat)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(LabelNama)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ButtonTambahUbah)
-                            .addComponent(ButtonResetHapus))
+                        .addContainerGap()
+                        .addComponent(LabelBarang)
                         .addGap(18, 18, 18)
-                        .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(ButtonBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(LabelNama)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(LabelBarang1)
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(LabelNama1)
+                            .addComponent(LabelNamaOrang))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(LabelNama2)
+                            .addComponent(LabelAlamatOrang))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ButtonTambahUbah)
+                    .addComponent(ButtonResetHapus))
+                .addGap(18, 18, 18)
+                .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -193,9 +223,9 @@ public class Barang extends javax.swing.JFrame {
 
     private void hapusData() {
         ActiveJDBC.Init();
-        OrangModel orang = OrangModel.findById(ID);
+        BarangModel barang = BarangModel.findById(ID);
         try {
-            orang.delete();
+            barang.delete();
         } catch (DBException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
@@ -206,43 +236,36 @@ public class Barang extends javax.swing.JFrame {
         if (state.equals("index")) {
             if (TextNama.getText().trim().equals("")) {
                 JOptionPane.showMessageDialog(null, "Form Nama Masih Kosong !!!");
-            } else if(TextAlamat.getText().trim().equals("")) {
-                JOptionPane.showMessageDialog(null, "Form Alamat Masih Kosong !!!");
             } else {
-                tambahData(TextNama.getText(), TextAlamat.getText());
+                tambahData(TextNama.getText());
                 resetForm();
                 loadTable();
             }
         } else {
             if (TextNama.getText().trim().equals("")) {
                 JOptionPane.showMessageDialog(null, "Form Nama Masih Kosong !!!");
-            } else if(TextAlamat.getText().trim().equals("")) {
-                JOptionPane.showMessageDialog(null, "Form Alamat Masih Kosong !!!");
             } else {
-                ubahData(ID, TextNama.getText(), TextAlamat.getText());
+                ubahData(ID, TextNama.getText());
                 resetForm();
                 loadTable();
             }
         }
     }//GEN-LAST:event_ButtonTambahUbahActionPerformed
 
-    private void TableOrangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableOrangMouseClicked
-        int i =TableOrang.getSelectedRow();
+    private void TableBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableBarangMouseClicked
+        int i =TableBarang.getSelectedRow();
         if(i>=0){
             ID = model.getValueAt(i, 0).toString();
+            
             ActiveJDBC.Init();
-            OrangModel orang = OrangModel.findById(ID);
-            TextNama.setText(orang.getString("nama"));
-            TextAlamat.setText(orang.getString("alamat"));
+            BarangModel barang = BarangModel.findById(ID);
             Base.close();
+            
+            TextNama.setText(barang.getString("nama"));
             
             setState("edit");
         }
-    }//GEN-LAST:event_TableOrangMouseClicked
-
-    private void ButtonBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBarangActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ButtonBarangActionPerformed
+    }//GEN-LAST:event_TableBarangMouseClicked
 
     private void setState(String IndexOrEdit) {
         if (IndexOrEdit.equals("index")) {
@@ -260,33 +283,27 @@ public class Barang extends javax.swing.JFrame {
         }
     }
     
-    private void tambahData(String nama, String alamat) {
+    private void tambahData(String nama) {
         ActiveJDBC.Init();
-        OrangModel orang = new OrangModel();
-        orang.set("nama", nama);
-        orang.set("alamat", alamat);
-        orang.save();
+        BarangModel barang = new BarangModel();
+        barang.set("id_orang", orang.getId());
+        barang.set("nama", nama);
+        barang.save();
         Base.close();
     }
     
-    private void ubahData(String id, String nama, String alamat) {
+    private void ubahData(String id, String nama) {
         ActiveJDBC.Init();
-        OrangModel orang = OrangModel.findById(id);
-        orang.set("nama", nama);
-        orang.set("alamat", alamat);
-        orang.save();
+        BarangModel barang = BarangModel.findById(id);
+        barang.set("nama", nama);
+        barang.save();
         Base.close();
     }
 
     private void resetForm() {
         TextNama.setText("");
-        TextAlamat.setText("");
     }
-    
-    private void checkState() {
         
-    }
-    
     /**
      * @param args the command line arguments
      */
@@ -324,17 +341,18 @@ public class Barang extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ButtonBarang;
     private javax.swing.JButton ButtonResetHapus;
     private javax.swing.JButton ButtonTambahUbah;
-    private javax.swing.JLabel LabelAlamat;
+    private javax.swing.JLabel LabelAlamatOrang;
+    private javax.swing.JLabel LabelBarang;
+    private javax.swing.JLabel LabelBarang1;
     private javax.swing.JLabel LabelNama;
-    private javax.swing.JLabel LabelOrang;
+    private javax.swing.JLabel LabelNama1;
+    private javax.swing.JLabel LabelNama2;
+    private javax.swing.JLabel LabelNamaOrang;
     private javax.swing.JScrollPane ScrollPane;
-    private javax.swing.JTable TableOrang;
-    private javax.swing.JTextPane TextAlamat;
+    private javax.swing.JTable TableBarang;
     private javax.swing.JTextPane TextNama;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
