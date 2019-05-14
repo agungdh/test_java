@@ -8,6 +8,7 @@ package test.test.Forms;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.javalite.activejdbc.Base;
+import org.javalite.activejdbc.DBException;
 import org.javalite.activejdbc.LazyList;
 import test.test.Helpers.ADHhelper;
 import test.test.Models.OrangModel;
@@ -182,7 +183,11 @@ public class Orang extends javax.swing.JFrame {
     private void hapusData() {
         ActiveJDBC.Init();
         OrangModel orang = OrangModel.findById(ID);
-        orang.delete();
+        try {
+            orang.delete();
+        } catch (DBException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
         Base.close();
     }
     
