@@ -58,10 +58,10 @@ class arisan extends CLI
         elseif ($options->getOpt('importdb'))
         {
             $this->info("Preparing ...\n");
-            $database = env('DB_DB');
-            $user = env('DB_USER');
-            $pass = env('DB_PASS');
-            $host = env('DB_HOST');
+            $database = getenv('DB_DB');
+            $user = getenv('DB_USER');
+            $pass = getenv('DB_PASS');
+            $host = getenv('DB_HOST');
 
             $this->info("Drop all tables");
             Pustaka::dropTableView($host, $user, $pass, $database);
