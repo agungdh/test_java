@@ -19,6 +19,8 @@ import test.test.Config.ActiveJDBC;
  */
 public class Orang extends javax.swing.JFrame {
     private DefaultTableModel model = new DefaultTableModel();
+    private String ID;
+    private String state;
     
     /**
      * Creates new form Orang
@@ -40,11 +42,12 @@ public class Orang extends javax.swing.JFrame {
         model.addColumn("Alamat");
         
         for(OrangModel orang : orangs) {
-            ADHhelper.d(orang.toJson(true));
             model.addRow(new Object[]{orang.getId(), orang.getString("nama"), orang.getString("alamat"), orang.getId()});
         }
         Base.close();
         TableOrang.setModel(model);
+        
+        setState("index");
     }
     
     /**
@@ -168,47 +171,102 @@ public class Orang extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonResetHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonResetHapusActionPerformed
+        if (state.equals("edit")) {
+            hapusData();
+            loadTable();
+        }
+        
         resetForm();
     }//GEN-LAST:event_ButtonResetHapusActionPerformed
 
+    private void hapusData() {
+        ActiveJDBC.Init();
+        OrangModel orang = OrangModel.findById(ID);
+        orang.delete();
+        Base.close();
+    }
+    
     private void ButtonTambahUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonTambahUbahActionPerformed
-        if (TextNama.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Form Nama Masih Kosong !!!");
-        } else if(TextAlamat.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Form Alamat Masih Kosong !!!");
+        if (state.equals("index")) {
+            if (TextNama.getText().trim().equals("")) {
+                JOptionPane.showMessageDialog(null, "Form Nama Masih Kosong !!!");
+            } else if(TextAlamat.getText().trim().equals("")) {
+                JOptionPane.showMessageDialog(null, "Form Alamat Masih Kosong !!!");
+            } else {
+                tambahData(TextNama.getText(), TextAlamat.getText());
+                resetForm();
+                loadTable();
+            }
         } else {
-            tambahData(TextNama.getText(), TextAlamat.getText());
-            resetForm();
-            loadTable();
+            if (TextNama.getText().trim().equals("")) {
+                JOptionPane.showMessageDialog(null, "Form Nama Masih Kosong !!!");
+            } else if(TextAlamat.getText().trim().equals("")) {
+                JOptionPane.showMessageDialog(null, "Form Alamat Masih Kosong !!!");
+            } else {
+                ubahData(ID, TextNama.getText(), TextAlamat.getText());
+                resetForm();
+                loadTable();
+            }
         }
     }//GEN-LAST:event_ButtonTambahUbahActionPerformed
 
     private void TableOrangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableOrangMouseClicked
         int i =TableOrang.getSelectedRow();
         if(i>=0){
+            ID = model.getValueAt(i, 0).toString();
             ActiveJDBC.Init();
-            OrangModel orang = OrangModel.findById(model.getValueAt(i, 0).toString());
+            OrangModel orang = OrangModel.findById(ID);
             TextNama.setText(orang.getString("nama"));
             TextAlamat.setText(orang.getString("alamat"));
             Base.close();
+            
+            setState("edit");
         }
     }//GEN-LAST:event_TableOrangMouseClicked
 
+    private void setState(String IndexOrEdit) {
+        if (IndexOrEdit.equals("index")) {
+            ButtonTambahUbah.setText("Tambah");
+            ButtonResetHapus.setText("Reset");
+            
+            state = IndexOrEdit;
+        } else if (IndexOrEdit.equals("edit")) {
+            ButtonTambahUbah.setText("Ubah");
+            ButtonResetHapus.setText("Hapus");
+            
+            state = IndexOrEdit;
+        } else {
+            JOptionPane.showMessageDialog(null, "Index/Edit ?");
+        }
+    }
+    
     private void tambahData(String nama, String alamat) {
         ActiveJDBC.Init();
         OrangModel orang = new OrangModel();
         orang.set("nama", nama);
         orang.set("alamat", alamat);
         orang.save();
-        ADHhelper.d(orang.getString("id"));
-        ADHhelper.d(orang.toJson(true));
         Base.close();
     }
     
+    private void ubahData(String id, String nama, String alamat) {
+        ActiveJDBC.Init();
+        OrangModel orang = OrangModel.findById(id);
+        orang.set("nama", nama);
+        orang.set("alamat", alamat);
+        orang.save();
+        Base.close();
+    }
+
     private void resetForm() {
         TextNama.setText("");
         TextAlamat.setText("");
     }
+    
+    private void checkState() {
+        
+    }
+    
     /**
      * @param args the command line arguments
      */
