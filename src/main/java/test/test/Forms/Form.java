@@ -36,6 +36,11 @@ public class Form extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Aplikasi Master CRUD");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         javax.swing.GroupLayout DesktopPaneLayout = new javax.swing.GroupLayout(DesktopPane);
         DesktopPane.setLayout(DesktopPaneLayout);
@@ -96,6 +101,14 @@ public class Form extends javax.swing.JFrame {
     private void MenuCRUDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCRUDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_MenuCRUDActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        Login login = new Login();
+        DesktopPane.add(login);
+        login.show();
+        
+        MenuBar.setVisible(false);
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

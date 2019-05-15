@@ -124,16 +124,16 @@ public class Barang extends javax.swing.JInternalFrame {
         TableBarang = new javax.swing.JTable();
         LabelNamaOrang = new javax.swing.JLabel();
         LabelAlamatOrang = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        TextNama = new javax.swing.JTextPane();
         LabelNama = new javax.swing.JLabel();
         ButtonTambahUbah = new javax.swing.JButton();
         ButtonResetHapus = new javax.swing.JButton();
         LabelNama1 = new javax.swing.JLabel();
         LabelBarang1 = new javax.swing.JLabel();
         LabelNama2 = new javax.swing.JLabel();
+        TextNama = new javax.swing.JTextField();
 
         setClosable(true);
+        setTitle("Barang");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -172,8 +172,6 @@ public class Barang extends javax.swing.JInternalFrame {
 
         LabelAlamatOrang.setText("valAlamat");
 
-        jScrollPane1.setViewportView(TextNama);
-
         LabelNama.setText("Nama");
 
         ButtonTambahUbah.setText("Tambah");
@@ -200,19 +198,19 @@ public class Barang extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(ScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LabelNama)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane1)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(ButtonTambahUbah)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(ButtonResetHapus))))
+                .addComponent(LabelNama)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ButtonTambahUbah)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ButtonResetHapus))
+                    .addComponent(TextNama, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -236,10 +234,11 @@ public class Barang extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(LabelNama)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(LabelNama)
+                            .addComponent(TextNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(ButtonTambahUbah)
                             .addComponent(ButtonResetHapus)))
@@ -323,7 +322,6 @@ public class Barang extends javax.swing.JInternalFrame {
     private javax.swing.JLabel LabelNamaOrang;
     private javax.swing.JScrollPane ScrollPane;
     private javax.swing.JTable TableBarang;
-    private javax.swing.JTextPane TextNama;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField TextNama;
     // End of variables declaration//GEN-END:variables
 }
