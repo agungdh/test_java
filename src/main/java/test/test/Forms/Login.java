@@ -5,10 +5,13 @@
  */
 package test.test.Forms;
 
+import java.awt.Container;
+import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.javalite.activejdbc.Base;
-import test.test.Helpers.ADHhelper;
 import test.test.Models.UserModel;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -114,11 +117,14 @@ public class Login extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Form Password Masih Kosong !!!");
         } else {
             Base.open();
-            UserModel user = UserModel.findFirst("username = ? AND password = ?", TextUsername.getText(), TextPassword.getText());
+            UserModel user = UserModel.findFirst("username = ? AND password = ?", TextUsername.getText(), DigestUtils.md5Hex(TextPassword.getText()));
             Base.close();
             
             if (user != null) {
-                JOptionPane.showMessageDialog(null, "Ada");
+                Form form = (Form) this.getTopLevelAncestor();
+                form.MenuBar.setVisible(true);
+                
+                this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Username / Password Salah !!!");
             }

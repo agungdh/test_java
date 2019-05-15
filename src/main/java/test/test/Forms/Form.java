@@ -148,7 +148,7 @@ public class Form extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane DesktopPane;
-    private javax.swing.JMenuBar MenuBar;
+    public javax.swing.JMenuBar MenuBar;
     private javax.swing.JMenu MenuCRUD;
     private javax.swing.JMenuItem SubMenuOrang;
     // End of variables declaration//GEN-END:variables
