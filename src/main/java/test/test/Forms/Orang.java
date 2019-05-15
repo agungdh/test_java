@@ -5,6 +5,7 @@
  */
 package test.test.Forms;
 
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.javalite.activejdbc.Base;
@@ -266,8 +267,12 @@ public class Orang extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_ButtonResetHapusActionPerformed
 
     private void ButtonBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBarangActionPerformed
-        BarangBak barang = new BarangBak(ID);
+        Barang barang = new Barang(ID);
+        JDesktopPane desktopPane = getDesktopPane();
+        desktopPane.add(barang);
         barang.setVisible(true);
+        
+        this.dispose();
     }//GEN-LAST:event_ButtonBarangActionPerformed
 
     private void TableOrangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableOrangMouseClicked
