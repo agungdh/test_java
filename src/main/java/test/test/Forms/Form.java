@@ -29,9 +29,13 @@ public class Form extends javax.swing.JFrame {
     private void initComponents() {
 
         DesktopPane = new javax.swing.JDesktopPane();
+        jToolBar1 = new javax.swing.JToolBar();
+        UserLabel = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         MenuCRUD = new javax.swing.JMenu();
         SubMenuOrang = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        SubMenuLogout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Aplikasi Master CRUD");
@@ -46,12 +50,15 @@ public class Form extends javax.swing.JFrame {
         DesktopPane.setLayout(DesktopPaneLayout);
         DesktopPaneLayout.setHorizontalGroup(
             DesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 942, Short.MAX_VALUE)
+            .addGap(0, 871, Short.MAX_VALUE)
         );
         DesktopPaneLayout.setVerticalGroup(
             DesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 429, Short.MAX_VALUE)
+            .addGap(0, 473, Short.MAX_VALUE)
         );
+
+        jToolBar1.setRollover(true);
+        jToolBar1.add(UserLabel);
 
         MenuCRUD.setText("CRUD");
         MenuCRUD.addActionListener(new java.awt.event.ActionListener() {
@@ -70,6 +77,18 @@ public class Form extends javax.swing.JFrame {
 
         MenuBar.add(MenuCRUD);
 
+        jMenu1.setText("System");
+
+        SubMenuLogout.setText("Logout");
+        SubMenuLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SubMenuLogoutActionPerformed(evt);
+            }
+        });
+        jMenu1.add(SubMenuLogout);
+
+        MenuBar.add(jMenu1);
+
         setJMenuBar(MenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -78,7 +97,9 @@ public class Form extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(DesktopPane)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(DesktopPane)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -86,6 +107,8 @@ public class Form extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(DesktopPane)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -103,13 +126,24 @@ public class Form extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuCRUDActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        Init();
+    }//GEN-LAST:event_formWindowActivated
+
+    private void SubMenuLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubMenuLogoutActionPerformed
+        DesktopPane.removeAll();
+        UserLabel.setText("");
+        
+        Init();
+    }//GEN-LAST:event_SubMenuLogoutActionPerformed
+
+    public void Init() {
         Login login = new Login();
         DesktopPane.add(login);
         login.show();
         
         MenuBar.setVisible(false);
-    }//GEN-LAST:event_formWindowActivated
-
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -150,6 +184,10 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JDesktopPane DesktopPane;
     public javax.swing.JMenuBar MenuBar;
     private javax.swing.JMenu MenuCRUD;
+    private javax.swing.JMenuItem SubMenuLogout;
     private javax.swing.JMenuItem SubMenuOrang;
+    public javax.swing.JLabel UserLabel;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 }

@@ -123,6 +123,7 @@ public class Login extends javax.swing.JInternalFrame {
             if (user != null) {
                 Form form = (Form) this.getTopLevelAncestor();
                 form.MenuBar.setVisible(true);
+                form.UserLabel.setText("User : " + TextUsername.getText());
                 
                 this.dispose();
             } else {
