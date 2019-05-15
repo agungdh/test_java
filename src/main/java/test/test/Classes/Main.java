@@ -5,8 +5,6 @@
  */
 package test.test.Classes;
 
-import org.javalite.activejdbc.Base;
-import test.test.Config.ActiveJDBC;
 import test.test.Forms.Form;
 
 /**

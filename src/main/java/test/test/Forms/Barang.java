@@ -11,7 +11,6 @@ import javax.swing.table.DefaultTableModel;
 import org.javalite.activejdbc.Base;
 import org.javalite.activejdbc.DBException;
 import org.javalite.activejdbc.LazyList;
-import test.test.Config.ActiveJDBC;
 import test.test.Models.BarangModel;
 import test.test.Models.OrangModel;
 
@@ -33,7 +32,7 @@ public class Barang extends javax.swing.JInternalFrame {
     public Barang(String orangID) {
         initComponents();
         
-        ActiveJDBC.Init();
+        Base.open();
         orang = OrangModel.findById(orangID);
         Base.close();
         
@@ -46,14 +45,14 @@ public class Barang extends javax.swing.JInternalFrame {
     private void loadTable() {
         model = new DefaultTableModel();
         
-        ActiveJDBC.Init();
+        Base.open();
         LazyList<BarangModel> barangs = orang.getAll(BarangModel.class);
         Base.close();
         
         model.addColumn("#ID");
         model.addColumn("Nama");
         
-        ActiveJDBC.Init();
+        Base.open();
         for(BarangModel barang : barangs) {
             model.addRow(new Object[]{barang.getId(), barang.getString("nama")});
         }
@@ -65,7 +64,7 @@ public class Barang extends javax.swing.JInternalFrame {
     }
     
     private void hapusData() {
-        ActiveJDBC.Init();
+        Base.open();
         BarangModel barang = BarangModel.findById(ID);
         try {
             barang.delete();
@@ -92,7 +91,7 @@ public class Barang extends javax.swing.JInternalFrame {
     }
     
     private void tambahData(String nama) {
-        ActiveJDBC.Init();
+        Base.open();
         BarangModel barang = new BarangModel();
         barang.set("id_orang", orang.getId());
         barang.set("nama", nama);
@@ -101,7 +100,7 @@ public class Barang extends javax.swing.JInternalFrame {
     }
     
     private void ubahData(String id, String nama) {
-        ActiveJDBC.Init();
+        Base.open();
         BarangModel barang = BarangModel.findById(id);
         barang.set("nama", nama);
         barang.save();
@@ -266,7 +265,7 @@ public class Barang extends javax.swing.JInternalFrame {
         if(i>=0){
             ID = model.getValueAt(i, 0).toString();
 
-            ActiveJDBC.Init();
+            Base.open();
             BarangModel barang = BarangModel.findById(ID);
             Base.close();
 

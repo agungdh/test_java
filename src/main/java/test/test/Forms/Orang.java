@@ -11,7 +11,6 @@ import javax.swing.table.DefaultTableModel;
 import org.javalite.activejdbc.Base;
 import org.javalite.activejdbc.DBException;
 import org.javalite.activejdbc.LazyList;
-import test.test.Config.ActiveJDBC;
 import test.test.Models.OrangModel;
 
 /**
@@ -35,7 +34,7 @@ public class Orang extends javax.swing.JInternalFrame {
     private void loadTable() {
         model = new DefaultTableModel();
         
-        ActiveJDBC.Init();
+        Base.open();
         LazyList<OrangModel> orangs = OrangModel.findAll();
         Base.close();
         
@@ -43,7 +42,7 @@ public class Orang extends javax.swing.JInternalFrame {
         model.addColumn("Nama");
         model.addColumn("Alamat");
         
-        ActiveJDBC.Init();
+        Base.open();
         for(OrangModel orang : orangs) {
             model.addRow(new Object[]{orang.getId(), orang.getString("nama"), orang.getString("alamat")});
         }
@@ -55,7 +54,7 @@ public class Orang extends javax.swing.JInternalFrame {
     }
     
     private void hapusData() {
-        ActiveJDBC.Init();
+        Base.open();
         OrangModel orang = OrangModel.findById(ID);
         try {
             orang.delete();
@@ -84,7 +83,7 @@ public class Orang extends javax.swing.JInternalFrame {
     }
     
     private void tambahData(String nama, String alamat) {
-        ActiveJDBC.Init();
+        Base.open();
         OrangModel orang = new OrangModel();
         orang.set("nama", nama);
         orang.set("alamat", alamat);
@@ -93,7 +92,7 @@ public class Orang extends javax.swing.JInternalFrame {
     }
     
     private void ubahData(String id, String nama, String alamat) {
-        ActiveJDBC.Init();
+        Base.open();
         OrangModel orang = OrangModel.findById(id);
         orang.set("nama", nama);
         orang.set("alamat", alamat);
@@ -280,7 +279,7 @@ public class Orang extends javax.swing.JInternalFrame {
         if(i>=0){
             ID = model.getValueAt(i, 0).toString();
 
-            ActiveJDBC.Init();
+            Base.open();
             OrangModel orang = OrangModel.findById(ID);
             Base.close();
 
