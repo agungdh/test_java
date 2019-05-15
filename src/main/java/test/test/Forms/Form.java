@@ -16,6 +16,7 @@ public class Form extends javax.swing.JFrame {
      */
     public Form() {
         initComponents();
+        setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -31,19 +32,20 @@ public class Form extends javax.swing.JFrame {
         MenuBar = new javax.swing.JMenuBar();
         MenuCRUD = new javax.swing.JMenu();
         SubMenuOrang = new javax.swing.JMenuItem();
-        SubMenuBarang = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Aplikasi Master CRUD");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout DesktopPaneLayout = new javax.swing.GroupLayout(DesktopPane);
         DesktopPane.setLayout(DesktopPaneLayout);
         DesktopPaneLayout.setHorizontalGroup(
             DesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 881, Short.MAX_VALUE)
+            .addGap(0, 942, Short.MAX_VALUE)
         );
         DesktopPaneLayout.setVerticalGroup(
             DesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 507, Short.MAX_VALUE)
+            .addGap(0, 429, Short.MAX_VALUE)
         );
 
         MenuCRUD.setText("CRUD");
@@ -60,9 +62,6 @@ public class Form extends javax.swing.JFrame {
             }
         });
         MenuCRUD.add(SubMenuOrang);
-
-        SubMenuBarang.setText("Barang");
-        MenuCRUD.add(SubMenuBarang);
 
         MenuBar.add(MenuCRUD);
 
@@ -89,8 +88,9 @@ public class Form extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SubMenuOrangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubMenuOrangActionPerformed
-        Orang a = new Orang();
-        a.setVisible(true);
+        Orang orang = new Orang();
+        DesktopPane.add(orang);
+        orang.show();
     }//GEN-LAST:event_SubMenuOrangActionPerformed
 
     private void MenuCRUDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCRUDActionPerformed
@@ -137,7 +137,6 @@ public class Form extends javax.swing.JFrame {
     private javax.swing.JDesktopPane DesktopPane;
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JMenu MenuCRUD;
-    private javax.swing.JMenuItem SubMenuBarang;
     private javax.swing.JMenuItem SubMenuOrang;
     // End of variables declaration//GEN-END:variables
 }

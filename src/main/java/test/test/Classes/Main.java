@@ -5,7 +5,9 @@
  */
 package test.test.Classes;
 
-import test.test.Forms.*;
+import org.javalite.activejdbc.Base;
+import test.test.Config.ActiveJDBC;
+import test.test.Forms.Form;
 
 /**
  *
@@ -13,12 +15,6 @@ import test.test.Forms.*;
  */
 public class Main {
     public static void main(String args[]) {
-//        test.test.Config.ActiveJDBC.Init();
-        
-        new Orang().setVisible(true);
-        
-//        new Form().setVisible(true);
-//        
-//        Temp.test();
+        new Form().setVisible(true);
     }
 }
