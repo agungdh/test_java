@@ -3,7 +3,7 @@
 -- Host: 127.0.0.1	Database: cilara_test
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.1.38-MariaDB
--- Date: Tue, 14 May 2019 04:48:55 +0200
+-- Date: Wed, 15 May 2019 06:23:30 +0200
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,7 +29,7 @@ CREATE TABLE `barang` (
   PRIMARY KEY (`id`),
   KEY `id_orang` (`id_orang`),
   CONSTRAINT `barang_ibfk_1` FOREIGN KEY (`id_orang`) REFERENCES `orang` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,12 +39,11 @@ CREATE TABLE `barang` (
 LOCK TABLES `barang` WRITE;
 /*!40000 ALTER TABLE `barang` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `barang` VALUES (1,1,'HP'),(2,1,'Leptop'),(3,2,'Motor'),(8,1,'Mobel'),(10,2,'zzz');
 /*!40000 ALTER TABLE `barang` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `barang` with 5 row(s)
+-- Dumped table `barang` with 0 row(s)
 --
 
 --
@@ -58,7 +57,7 @@ CREATE TABLE `orang` (
   `nama` varchar(191) NOT NULL,
   `alamat` varchar(191) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,12 +67,12 @@ CREATE TABLE `orang` (
 LOCK TABLES `orang` WRITE;
 /*!40000 ALTER TABLE `orang` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `orang` VALUES (1,'AgungDH','NGR'),(2,'Bintang','PSW'),(41,'12','2'),(44,'aa','sf');
+INSERT INTO `orang` VALUES (1,'AgungDH','NGR'),(2,'Bintang','PSW');
 /*!40000 ALTER TABLE `orang` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `orang` with 4 row(s)
+-- Dumped table `orang` with 2 row(s)
 --
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -85,4 +84,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Tue, 14 May 2019 04:48:55 +0200
+-- Dump completed on: Wed, 15 May 2019 06:23:30 +0200
