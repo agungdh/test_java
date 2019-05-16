@@ -5,9 +5,6 @@
  */
 package test.test.Forms;
 
-import java.awt.Container;
-import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.javalite.activejdbc.Base;
 import test.test.Models.UserModel;

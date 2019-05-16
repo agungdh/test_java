@@ -17,6 +17,7 @@ public class Form extends javax.swing.JFrame {
     public Form() {
         initComponents();
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
+        Init();
     }
 
     /**
@@ -126,7 +127,7 @@ public class Form extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuCRUDActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        Init();
+        
     }//GEN-LAST:event_formWindowActivated
 
     private void SubMenuLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubMenuLogoutActionPerformed
